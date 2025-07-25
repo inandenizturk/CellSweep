@@ -872,6 +872,11 @@
       this.particleCanvas = document.getElementById('particleCanvas');
       this.particleSystem = new ParticleSystem(this.particleCanvas);
       
+      this.timerEl = document.getElementById('timer');
+      this.mineCounterEl = document.getElementById('mineCounter');
+      this.gameStatusEl = document.getElementById('gameStatus');
+      this.stopBtnEl = document.getElementById('stopBtn');
+      
       // Touch handling
       this.touchStartTime = 0;
       this.touchStartPos = null;
@@ -1008,13 +1013,13 @@
       this.focusedCell = { row: 0, col: 0 };
 
       clearInterval(this.timerInterval);
-      document.getElementById('timer').textContent = '0';
-      document.getElementById('mineCounter').textContent = this.numMines;
-      document.getElementById('gameStatus').textContent = 'Tap a cell to start!';
-      document.getElementById('gameStatus').style.color = 'var(--text-color)';
-      document.getElementById('stopBtn').textContent = 'Stop';
-      document.getElementById('stopBtn').disabled = false;
-      document.getElementById('stopBtn').onclick = stopGame;
+      this.timerEl.textContent = '0';
+      this.mineCounterEl.textContent = this.numMines;
+      this.gameStatusEl.textContent = 'Tap a cell to start!';
+      this.gameStatusEl.style.color = 'var(--text-color)';
+      this.stopBtnEl.textContent = 'Stop';
+      this.stopBtnEl.disabled = false;
+      this.stopBtnEl.onclick = stopGame;
 
       this.draw();
       this.canvas.focus();
@@ -1054,7 +1059,7 @@
         this.timerInterval = setInterval(() => {
           if (!this.gameOver && !this.gameWon) {
             const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
-            document.getElementById('timer').textContent = elapsed;
+            this.timerEl.textContent = elapsed;
           }
         }, 1000);
       }
@@ -1107,8 +1112,8 @@
 
       if (this.board[row][col] === 'M') {
         this.gameOver = true;
-        document.getElementById('gameStatus').textContent = '💥 Game Over!';
-        document.getElementById('gameStatus').style.color = '#ff4444';
+        this.gameStatusEl.textContent = '💥 Game Over!';
+        this.gameStatusEl.style.color = '#ff4444';
         clearInterval(this.timerInterval);
         
         const x = col * this.cellSize + this.cellSize / 2;
@@ -1191,7 +1196,7 @@
 
     updateMineCounter() {
       const flaggedCount = this.flagged.flat().filter(f => f).length;
-      document.getElementById('mineCounter').textContent = this.numMines - flaggedCount;
+      this.mineCounterEl.textContent = this.numMines - flaggedCount;
     }
 
     checkWin() {
@@ -1209,8 +1214,8 @@
 
       if (revealedCount === (this.rows * this.cols - this.numMines) || correctFlags === this.numMines) {
         this.gameWon = true;
-        document.getElementById('gameStatus').textContent = '🎉 You Won!';
-        document.getElementById('gameStatus').style.color = '#4CAF50';
+        this.gameStatusEl.textContent = '🎉 You Won!';
+        this.gameStatusEl.style.color = '#4CAF50';
         clearInterval(this.timerInterval);
         
         const centerX = this.canvas.width / 2;
@@ -1268,9 +1273,9 @@
       if (safeCells.length > 0) {
         const hint = safeCells[Math.floor(Math.random() * safeCells.length)];
         this.revealCell(hint.row, hint.col);
-        document.getElementById('gameStatus').textContent = 'Hint used!';
+        this.gameStatusEl.textContent = 'Hint used!';
       } else {
-        document.getElementById('gameStatus').textContent = 'No safe cells available!';
+        this.gameStatusEl.textContent = 'No safe cells available!';
       }
     }
 
