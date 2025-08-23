@@ -1,0 +1,37 @@
+{
+  "name": "cellsweep",
+  "version": "1.0.0",
+  "description": "A blockchain-powered reinvention of the classic Minesweeper game with Solana integration",
+  "main": "src/CellSweep.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "deploy": "gh-pages -d .",
+    "serve": "python3 -m http.server 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inandenizturk/CellSweep.git"
+  },
+  "keywords": [
+    "minesweeper",
+    "blockchain",
+    "solana",
+    "web3",
+    "game",
+    "betting",
+    "multiplayer",
+    "crypto"
+  ],
+  "author": "İnan Deniz Türk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inandenizturk/CellSweep/issues"
+  },
+  "homepage": "https://inandenizturk.github.io/CellSweep/",
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
