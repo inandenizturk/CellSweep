@@ -32,9 +32,14 @@ jobs:
 
     - name: Prepare static site
       run: |
+        rm -rf dist
         mkdir -p dist
-        cp -r . dist/
-        # Create CNAME file for custom domain
+        rsync -av --delete \
+          --exclude ".git" \
+          --exclude ".github" \
+          --exclude "node_modules" \
+          --exclude "dist" \
+          ./ dist/
         echo "cellsweep.com" > dist/CNAME
 
     - name: Upload Pages artifact
